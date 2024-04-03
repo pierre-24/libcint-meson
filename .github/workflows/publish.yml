@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
-          sudo apt-get -y install clisp
+          sudo apt-get -y install clisp meson ninja-build
       - name: Fetch & Generate
         run: |
            # clone and checkout
@@ -30,6 +30,13 @@ jobs:
            ../patch.sh
            # create archive
            tar -czf libcint.tar.gz src/ include/ meson.build meson_options.txt
+      - name: Test package
+        run: |
+            mkdir workdir
+            cd workdir
+            tar -xzf ../libcint/libcint.tar.gz
+            meson setup _build
+            meson compile -C _build
       - name: Upload
         uses: svenstaro/upload-release-action@v2
         with:
