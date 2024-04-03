@@ -19,13 +19,14 @@ jobs:
           sudo apt-get -y install clisp
       - name: Fetch & Generate
         run: |
+           # clone and checkout
            git clone https://github.com/sunqm/libcint.git
-           cd libcint/script
+           cd libcint/
            git checkout ${{ matrix.libcint_ref }}
-           clisp auto_intor.cl
-           mv *.c ../src/autocode/
-           cd ..
-           tar -czf libcint.tar.gz scr/ include/
+           # generate
+           ../patch.sh
+           # create archive
+           tar -czf libcint.tar.gz src/ include/
       - name: Upload
         uses: svenstaro/upload-release-action@v2
         with:
