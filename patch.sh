@@ -9,10 +9,12 @@ sed -i "10i  '(\"int1e_p\"                   ( \\\\| p ))" scripts/auto_intor.cl
 
 echo "... Patched!"
 
-echo "Generate"
+echo "Generate C files and corresponding header"
 cd scripts/
-clisp auto_intor.cl
+cat ../../base_cint_funcs.h > cint_funcs.h
+clisp auto_intor.cl >> cint_funcs.h
 mv *.c ../src/autocode/
+mv cint_funcs.h ../include/
 cd ..
 
 echo "add Meson files"
