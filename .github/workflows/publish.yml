@@ -1,0 +1,34 @@
+name: Publish patched code
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Patch and publish
+    runs-on: ubuntu-latest
+    matrix:
+        libcint_ref: ['v6.1.2']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt-get -y install clisp
+      - name: Fetch & Generate
+        run: |
+           git clone https://github.com/sunqm/libcint.git
+           cd libcint/script
+           git checkout ${{ matrix.libcint_ref }}
+           clisp auto_intor.cl
+           mv *.c ../src/autocode/
+           cd ..
+           tar -czf libcint.tar.gz scr/ include/
+      - name: Upload
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: libcint.tar.gz
+          asset_name: libcint_${{ matrix.libcint_ref }}.tar.gz
+          tag: latest
+          overwrite: true
