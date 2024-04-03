@@ -26,12 +26,12 @@ jobs:
            # generate
            ../patch.sh
            # create archive
-           tar -czf libcint.tar.gz src/ include/
+           tar -czf libcint.tar.gz src/ include/ meson.build meson_options.txt
       - name: Upload
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: libcint.tar.gz
+          file: libcint/libcint.tar.gz
           asset_name: libcint_${{ matrix.libcint_ref }}.tar.gz
           tag: latest
           overwrite: true

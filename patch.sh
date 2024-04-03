@@ -16,8 +16,10 @@ echo "... Patched!"
 echo "Generate"
 cd scripts/
 clisp auto_intor.cl
-
-echo "Move generated code"
 mv *.c ../src/autocode/
+cd ..
+
+echo "add Meson files"
+cp -R ../meson/* .
 
 echo "done"

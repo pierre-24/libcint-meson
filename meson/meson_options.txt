@@ -1,0 +1,58 @@
+
+option(
+    'with_polynomial_fit',
+    type: 'boolean',
+    value: false,
+    description: 'enable -DWITH_POLYNOMIAL_FIT',
+)
+
+option(
+    'with_f12',
+    type: 'boolean',
+    value: false,
+    description: 'enable -DWITH_F12',
+)
+
+option(
+    'with_4c1e',
+    type: 'boolean',
+    value: false,
+    description: 'enable -DWITH_F12',
+)
+
+option(
+    'pypzpx',
+    type: 'boolean',
+    value: false,
+    description: 'enable -DPYPZPX',
+)
+
+option(
+    'min_expcutoff',
+    type: 'string',
+    value: '',
+    description: 'Minimal cutoff in exponent for integral screening',
+)
+
+option(
+    'keep_going',
+    type: 'boolean',
+    value: false,
+    description: 'enable -DKEEP_GOING',
+)
+
+option(
+    'with_fortran',
+    type: 'boolean',
+    value: false,
+    description: 'enable -DWITH_FORTRAN',
+)
+
+option(
+    'with_cint2_interface',
+    type: 'boolean',
+    value: false,
+    description: 'enable -DWITH_CINT2_INTERFACE',
+)
+
+
