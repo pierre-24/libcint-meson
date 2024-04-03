@@ -1,0 +1,9 @@
+[wrap-file]
+source_url = https://github.com/pierre-24/libcint-for-stdft/releases/download/latest/libcint_#VERSION#.tar.gz
+source_filename = libcint_#VERSION#.tar.gz
+source_hash = #HASH#
+
+lead_directory_missing = libcint
+
+[provide]
+libcint = libcint_dep
