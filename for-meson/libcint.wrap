@@ -1,5 +1,5 @@
 [wrap-file]
-source_url = https://github.com/pierre-24/libcint-meson/releases/download/latest/libcint_#VERSION#.tar.gz
+source_url = https://github.com/pierre-24/libcint-meson/releases/download/#REF#/libcint_#VERSION#.tar.gz
 source_filename = libcint_#VERSION#.tar.gz
 source_hash = #HASH#
 

@@ -1,3 +1,4 @@
 libcint/
-workdir
+workdir/
+venv/
 *.tar.gz
