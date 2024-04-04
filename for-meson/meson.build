@@ -3,7 +3,7 @@
 
 project(
     'cint', 'c',
-    version : '6.1',
+    version : '#VERSION#',
 )
 
 cc = meson.get_compiler('c')
@@ -11,7 +11,7 @@ cc_id = cc.get_id()
 
 # configure
 project_config = configuration_data({
-    'cint_VERSION': '6.1.0',
+    'cint_VERSION': '#VERSION#',
     'cint_SOVERSION': '6'
 })
 

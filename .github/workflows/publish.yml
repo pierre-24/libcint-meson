@@ -36,6 +36,7 @@ jobs:
            git checkout ${{ matrix.libcint_ref }}
            # generate
            ../patch.sh
+           sed -i "s/#VERSION#/${{ matrix.libcint_ref }}/g" meson.build
            # create archive
            tar -czf libcint.tar.gz src/ include/ meson.build meson_options.txt
            # create wrap

@@ -17,7 +17,7 @@ option(
     'with_4c1e',
     type: 'boolean',
     value: false,
-    description: 'enable -DWITH_F12',
+    description: 'enable -DWITH_4C1E',
 )
 
 option(

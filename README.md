@@ -1,10 +1,10 @@
 # libcint (Meson wrap files)
 
-Create ready-to-go archives and corresponding [wrap files](https://mesonbuild.com/Wrap-dependency-system-manual.html) of [libcint](https://github.com/sunqm/libcint) for Meson builds.
+This project create ready-to-go archives and corresponding [wrap files](https://mesonbuild.com/Wrap-dependency-system-manual.html) of [`libcint`](https://github.com/sunqm/libcint) for Meson builds.
 
-The different wrap files are available [here](https://github.com/pierre-24/libcint-meson/releases/tag/v0.0.4) (bleeding edge version are available [here](https://github.com/pierre-24/libcint-meson/releases/tag/latest)).
+The different wrap files are available [here](https://github.com/pierre-24/libcint-meson/releases/tag/v0.0.4) (pre-releases versions are available [here](https://github.com/pierre-24/libcint-meson/releases/tag/latest), but their hash changes without notice).
 
-Note that extra integrals are enabled in order to be used in some projects ([`stdlite`](https://github.com/pierre-24/stdlite) and [`stda`](https://github.com/grimme-lab/stda)), but this should not prevent you for using it.
+Note that extra integrals are enabled in order for the code to be used in some projects ([`stdlite`](https://github.com/pierre-24/stdlite) and [`stda`](https://github.com/grimme-lab/stda)), but this should not prevent you from using it.
 
 ## Usage
 
@@ -16,7 +16,7 @@ Just grab the wrap file corresponding to the version you want to use ...
 # create a `subprojects` folder if it does not exists yet
 mkdir subprojects
 
-# download wrap file, here for v6.1.2:
+# download wrap file, here for libcint v6.1.2:
 cd subprojects
 wget https://github.com/pierre-24/libcint-meson/releases/download/v0.0.4/libcint_v6.1.2.wrap -O libcint.wrap
 ```
@@ -24,6 +24,8 @@ wget https://github.com/pierre-24/libcint-meson/releases/download/v0.0.4/libcint
 ... and add something like this in your `meson.build`:
 
 ```Meson
+cc = meson.get_compiler('c')
+
 libcint_dep = cc.find_library('libcint', required: false)
 if not libcint_dep.found()
   libcint_proj = subproject('libcint', default_options: [])
@@ -31,3 +33,5 @@ if not libcint_dep.found()
 endif
 project_dep += libcint_dep
 ```
+
+You can check out the options in [`meson_options.txt`](./for-meson/meson_options.txt)
