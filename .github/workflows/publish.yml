@@ -56,7 +56,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: libcint/libcint.tar.gz
           asset_name: libcint_${{ matrix.libcint_ref }}.tar.gz
-          tag: ${{ REF }}
+          tag: ${{ env.REF }}
           overwrite: true
       - name: Upload wrap
         uses: svenstaro/upload-release-action@v2
@@ -64,5 +64,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: libcint/libcint.wrap
           asset_name: libcint_${{ matrix.libcint_ref }}.wrap
-          tag: ${{ REF }}
+          tag: ${{ env.REF }}
           overwrite: true
