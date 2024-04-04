@@ -2,7 +2,7 @@
 
 Create ready-to-go archives and corresponding [wrap files](https://mesonbuild.com/Wrap-dependency-system-manual.html) of [libcint](https://github.com/sunqm/libcint) for Meson builds.
 
-The different wrap files are available [here](https://github.com/pierre-24/libcint-meson/releases/tag/v0.0.1) (bleeding edge version are available [here](https://github.com/pierre-24/libcint-meson/releases/tag/latest)).
+The different wrap files are available [here](https://github.com/pierre-24/libcint-meson/releases/tag/v0.0.2) (bleeding edge version are available [here](https://github.com/pierre-24/libcint-meson/releases/tag/latest)).
 
 Note that extra integrals are enabled in order to be used in some projects ([`stdlite`](https://github.com/pierre-24/stdlite) and [`stda`](https://github.com/grimme-lab/stda)), but this should not prevent you for using it.
 
@@ -18,7 +18,7 @@ mkdir subprojects
 
 # download wrap file, here for v6.1.2:
 cd subprojects
-wget https://github.com/pierre-24/libcint-meson/releases/download/v0.0.1/libcint_v6.1.2.wrap -O libcint.wrap
+wget https://github.com/pierre-24/libcint-meson/releases/download/v0.0.2/libcint_v6.1.2.wrap -O libcint.wrap
 ```
 
 ... and add something like this in your `meson.build`:
