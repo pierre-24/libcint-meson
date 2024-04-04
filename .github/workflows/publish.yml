@@ -27,7 +27,7 @@ jobs:
       - name: change ref (tag)
         if: contains(github.ref, 'tags')
         run: |
-            export REF=${{ github.ref_name }}
+            echo "REF=${{ github.ref_name }}" >> "$GITHUB_ENV"
       - name: Fetch & Generate
         run: |
            # clone and checkout
@@ -40,7 +40,7 @@ jobs:
            tar -czf libcint.tar.gz src/ include/ meson.build meson_options.txt
            # create wrap
            HASH=$(sha256sum libcint.tar.gz | cut -d " " -f 1 )
-           sed -i "s/#REF#/${REF}/g" libcint.wrap
+           sed -i "s/#REF#/${{ env.REF }}/g" libcint.wrap
            sed -i "s/#VERSION#/${{ matrix.libcint_ref }}/g" libcint.wrap
            sed -i "s/#HASH#/${HASH}/g" libcint.wrap
       - name: Test package
