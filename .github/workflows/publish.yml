@@ -21,7 +21,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+      - name: Set up clang
+        uses: egor-tensin/setup-clang@v1
+        with:
+          version: latest
+      - name: Install other dependencies
         run: |
           sudo apt-get -y install clisp meson ninja-build
       - name: change ref (tag)
@@ -44,11 +52,19 @@ jobs:
            sed -i "s/#REF#/${{ env.REF }}/g" libcint.wrap
            sed -i "s/#VERSION#/${{ matrix.libcint_ref }}/g" libcint.wrap
            sed -i "s/#HASH#/${HASH}/g" libcint.wrap
-      - name: Test package
+      - name: Test package with GCC
         run: |
-            mkdir workdir
-            cd workdir
+            mkdir workdir_gcc
+            cd workdir_gcc
             tar -xzf ../libcint/libcint.tar.gz
+            meson setup _build
+            meson compile -C _build
+      - name: Test package with clang
+        run: |
+            mkdir workdir_clang
+            cd workdir_clang
+            tar -xzf ../libcint/libcint.tar.gz
+            export CC=clang
             meson setup _build
             meson compile -C _build
       - name: Upload archive
