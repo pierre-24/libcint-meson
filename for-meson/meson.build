@@ -16,7 +16,7 @@ project_config = configuration_data({
 })
 
 quadmath_dep = cc.find_library('quadmath', required: false)
-if quadmath_dep.found() and cc_id != 'clang'
+if quadmath_dep.found() and cc_id == 'gcc'
     project_config.set('HAVE_QUADMATH_H', true)
 endif
 
@@ -53,7 +53,7 @@ if cc.has_argument('-march=native')
     message('added -march=native and loop unroling flags')
 endif
 
-if quadmath_dep.found() and cc_id != 'clang'
+if quadmath_dep.found() and cc_id == 'gcc'
     project_dep += quadmath_dep
     build_args += '-DHAVE_QUADMATH_H'
     message('added quadmath')
