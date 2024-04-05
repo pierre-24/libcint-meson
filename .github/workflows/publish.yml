@@ -31,7 +31,7 @@ jobs:
           version: latest
       - name: Install other dependencies
         run: |
-          sudo apt-get -y install clisp meson ninja-build
+          sudo apt-get -y install clisp meson ninja-build cmake
       - name: change ref (tag)
         if: contains(github.ref, 'tags')
         run: |
@@ -46,7 +46,7 @@ jobs:
            ../patch.sh
            sed -i "s/#VERSION#/${{ matrix.libcint_ref }}/g" meson.build
            # create archive
-           tar -czf libcint.tar.gz src/ include/ meson.build meson_options.txt
+           tar -czf libcint.tar.gz src/ include/ cmake/ meson.build meson_options.txt CMakeLists.txt
            # create wrap
            HASH=$(sha256sum libcint.tar.gz | cut -d " " -f 1 )
            sed -i "s/#REF#/${{ env.REF }}/g" libcint.wrap
@@ -67,6 +67,15 @@ jobs:
             export CC=clang
             meson setup _build
             meson compile -C _build
+      - name: Test package with cmake
+        run: |
+            mkdir workdir_cmake
+            cd workdir_cmake
+            tar -xzf ../libcint/libcint.tar.gz
+            mkdir build
+            cd build
+            cmake ..
+            make install
       - name: Upload archive
         uses: svenstaro/upload-release-action@v2
         with:
