@@ -9,6 +9,15 @@ sed -i "10i  '(\"int1e_p\"                   ( \\\\| p ))" scripts/auto_intor.cl
 
 echo "... Patched!"
 
+echo "Patching CMakeList.txt"
+
+# remove those nasty CPACK_*
+sed -i '220 s/./#&/' CMakeLists.txt
+sed -i '221 s/./#&/' CMakeLists.txt
+sed -i '222 s/./#&/' CMakeLists.txt
+
+echo "... Patched!"
+
 echo "Generate C files and corresponding header"
 cd scripts/
 cat ../../for-libcint/base_cint_funcs.h > cint_funcs.h

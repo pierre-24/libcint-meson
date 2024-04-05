@@ -75,7 +75,7 @@ jobs:
             mkdir build
             cd build
             cmake ..
-            make install
+            cmake --build .
       - name: Upload archive
         uses: svenstaro/upload-release-action@v2
         with:
