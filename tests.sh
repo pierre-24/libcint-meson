@@ -38,7 +38,12 @@ for TEST_SOURCE_DIR in ../for-tests/test_meson*; do
     # execute
     _build/test_libcint > ACTUAL
     if [[ $(diff EXPECTED ACTUAL) != "" ]]; then
-        echo "Unexpected output for ${TEST_DIR} :("
+        echo "Unexpected output for ${TEST_DIR}::"
+        echo "EXPECTED ---"
+        cat EXPECTED
+        echo "ACTUAL ----"
+        cat ACTUAL
+        echo "-----------"
         exit 1
     fi
     
