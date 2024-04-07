@@ -28,6 +28,13 @@ if cc.has_function('sqrtl')
     project_config.set('HAVE_SQRTL', true)
 endif
 
+if get_option('i8')
+    project_config.set('I8', true)
+    message('sizeof(FINT)=8')
+else
+    message('sizeof(FINT)=4')
+endif
+
 # sources & includes
 srcs = []
 
@@ -94,6 +101,8 @@ endif
 if get_option('with_cint2_interface')
     build_args += '-DWITH_CINT2_INTERFACE'
 endif
+
+message('Build args are: ' + ', '.join(build_args))
 
 # library
 libcint = library(

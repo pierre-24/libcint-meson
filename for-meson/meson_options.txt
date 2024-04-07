@@ -55,4 +55,11 @@ option(
     description: 'enable -DWITH_CINT2_INTERFACE',
 )
 
+option(
+    'i8',
+    type: 'boolean',
+    value: false,
+    description: 'enable -DI8 (64 bit integers)',
+)
+
 
