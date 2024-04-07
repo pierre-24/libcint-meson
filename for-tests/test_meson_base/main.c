@@ -3,6 +3,8 @@
 
 #include <cint_funcs.h>
 
+#define MIN(a,b) ((a<b)? a:b)
+
 int main() {
   printf("sizeof(FINT)=%ld\n", sizeof(FINT));
 
@@ -76,10 +78,10 @@ int main() {
     si = CINTcgtos_cart(ibas, bas);
     for(FINT jbas=0; jbas <= ibas; jbas++) {
       sj = CINTcgtos_cart(jbas, bas);
+      printf("ibas=%d (N=%d), jbas=%d (N=%d)\n", ibas, si, jbas, sj);
       int1e_ovlp_cart(buff, NULL, (FINT[]) {ibas, jbas}, atm, natm, bas, nbas, env, NULL, NULL);
-      printf("ibas=%ld (N=%ld), jbas=%ld (N=%ld)\n", ibas, si, jbas, sj);
       for (FINT ielm=0; ielm < si; ielm++) {
-        for(FINT jelm=0; jelm < ielm + 1; jelm++)
+        for(FINT jelm=0; jelm < MIN(sj, ielm + 1); jelm++)
           printf(" %.5f", buff[ielm * si + jelm]);
         printf("\n");
       }

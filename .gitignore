@@ -4,5 +4,6 @@ libcint/
 # tests
 testsdir/
 for-tests/*/subprojects/libcint/
+_build
 # others
 venv/

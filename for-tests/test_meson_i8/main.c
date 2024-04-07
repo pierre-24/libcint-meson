@@ -3,36 +3,12 @@
 
 #include <cint_funcs.h>
 
+#define MIN(a,b) ((a<b)? a:b)
+
 int main() {
   printf("sizeof(FINT)=%ld\n", sizeof(FINT));
 
-  /* water, STO-3G USING
-  
-  ```c
-    printf("int atm[%d =%d*6 ] = {\n", bs->natm * 6, bs->natm);
-    for (int iatm = 0; iatm < bs->natm; ++iatm) {
-        printf("  ");
-        for (int ipos = 0; ipos < 6; ++ipos)
-            printf("%d,", bs->atm[iatm * 6 + ipos]);
-        printf("\n");
-    }
-    printf("};\n");
-
-    printf("int bas[%d =%d*8] = {\n", bs->nbas * 8, bs->nbas);
-    for (int ibas = 0; ibas < bs->nbas; ++ibas) {
-        printf("  ");
-        for (int ipos = 0; ipos < 8; ++ipos)
-            printf("%d,", bs->bas[ibas * 8 + ipos]);
-        printf("\n");
-    }
-    printf("};\n");
-
-    printf("double env[%ld] = {\n", bs->env_size);
-    for(size_t ipos=0; ipos < bs->env_size; ipos++) {
-        printf("%f,", bs->env[ipos]);
-    }
-    printf("};\n");
-  ```
+  /* water, STO-3G
   */
   
   FINT natm = 3;
@@ -79,7 +55,7 @@ int main() {
       int1e_ovlp_cart(buff, NULL, (FINT[]) {ibas, jbas}, atm, natm, bas, nbas, env, NULL, NULL);
       printf("ibas=%ld (N=%ld), jbas=%ld (N=%ld)\n", ibas, si, jbas, sj);
       for (FINT ielm=0; ielm < si; ielm++) {
-        for(FINT jelm=0; jelm < ielm + 1; jelm++)
+        for(FINT jelm=0; jelm < MIN(sj, ielm + 1); jelm++)
           printf(" %.5f", buff[ielm * si + jelm]);
         printf("\n");
       }
