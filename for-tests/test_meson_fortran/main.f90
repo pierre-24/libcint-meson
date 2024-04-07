@@ -10,6 +10,8 @@ program test_libcint
   ! what?!?
   integer,external :: CINTcgto_cart
   
+  print *, 'SIZEOF(integer)=', STORAGE_SIZE(natm)
+  
   ! water STO-3G
   natm = 3
   atm = [&

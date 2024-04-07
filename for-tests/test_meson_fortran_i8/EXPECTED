@@ -1,4 +1,4 @@
- SIZEOF(integer)=          32
+ SIZEOF(integer)=                   64
 ibas=0 (N=1), jbas=0 (N=1)
  1.00000
 ibas=1 (N=1), jbas=0 (N=1)
