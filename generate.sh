@@ -11,28 +11,23 @@ echo "-- Clone"
 git clone https://github.com/sunqm/libcint.git
 cd libcint/
 git checkout ${1}
+cd ..
 
 # generate
 echo "-- Generate ::"
 
-echo -n "1) Patching 'scripts/auto_intor.cl' in ${PWD}"
+echo "1) Patching 'licint/':"
 
-# add <i|-i\nabla|j>
-sed -i "10i  '(\"int1e_p\"                   ( \\\\| p ))" scripts/auto_intor.cl
+# ** Patch generated via:
+# git clone https://github.com/sunqm/libcint.git
+# cp -r libcint libcint__
+# changing stuffs
+# diff -ruN libcint__ libcint > generate.patch
 
-echo "... Patched!"
+patch -p0 < generate.patch
 
-echo -n "2) Patching CMakeList.txt"
-
-# remove those nasty CPACK_*
-sed -i '220 s/./#&/' CMakeLists.txt
-sed -i '221 s/./#&/' CMakeLists.txt
-sed -i '222 s/./#&/' CMakeLists.txt
-
-echo "... Patched!"
-
-echo "3) Generate C files and corresponding header"
-cd scripts/
+echo "2) Generate C files and corresponding header"
+cd libcint/scripts/
 cat ../../for-libcint/base_cint_funcs.h > cint_funcs.h
 clisp auto_intor.cl >> cint_funcs.h
 mv *.c ../src/autocode/
