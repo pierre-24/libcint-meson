@@ -36,46 +36,17 @@ jobs:
         if: contains(github.ref, 'tags')
         run: |
             echo "REF=${{ github.ref_name }}" >> "$GITHUB_ENV"
-      - name: Fetch & Generate
+      - name: Generate
         run: |
-           # clone and checkout
-           git clone https://github.com/sunqm/libcint.git
-           cd libcint/
-           git checkout ${{ matrix.libcint_ref }}
-           # generate
-           ../patch.sh
-           sed -i "s/#VERSION#/${{ matrix.libcint_ref }}/g" meson.build
-           # create archive
-           tar -czf libcint.tar.gz src/ include/ cmake/ meson.build meson_options.txt CMakeLists.txt
-           # create wrap
-           HASH=$(sha256sum libcint.tar.gz | cut -d " " -f 1 )
-           sed -i "s/#REF#/${{ env.REF }}/g" libcint.wrap
-           sed -i "s/#VERSION#/${{ matrix.libcint_ref }}/g" libcint.wrap
-           sed -i "s/#HASH#/${HASH}/g" libcint.wrap
-      - name: Test package with GCC
+           ./generate.sh "${{ matrix.libcint_ref }}" "${{ env.REF }}"
+      - name: Test archive (GCC)
         run: |
-            mkdir workdir_gcc
-            cd workdir_gcc
-            tar -xzf ../libcint/libcint.tar.gz
-            meson setup _build
-            meson compile -C _build
-      - name: Test package with clang
+            export CC=gcc
+            ./tests.sh
+      - name: Test archive (Clang)
         run: |
-            mkdir workdir_clang
-            cd workdir_clang
-            tar -xzf ../libcint/libcint.tar.gz
             export CC=clang
-            meson setup _build
-            meson compile -C _build
-      - name: Test package with cmake
-        run: |
-            mkdir workdir_cmake
-            cd workdir_cmake
-            tar -xzf ../libcint/libcint.tar.gz
-            mkdir build
-            cd build
-            cmake ..
-            cmake --build .
+            ./tests.sh
       - name: Upload archive
         uses: svenstaro/upload-release-action@v2
         with:

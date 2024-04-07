@@ -1,4 +1,8 @@
+# generation
 libcint/
-workdir/
-venv/
 *.tar.gz
+# tests
+testsdir/
+for-tests/*/subprojects/libcint/
+# others
+venv/
