@@ -56,7 +56,7 @@ program test_libcint
       shells = [ibas - 1, jbas - 1]
       call cint1e_ovlp_cart(buff, shells, atm, natm,bas, nbas, env)
       do ielm=1, si
-        print '(*(f8.5))', buff(1 + (ielm-1) * si:(ielm-1) * si + min(ielm, sj))
+        print '(*(f8.5))', abs(buff(1 + (ielm-1) * si:(ielm-1) * si + min(ielm, sj)))
       enddo
     enddo
   enddo
