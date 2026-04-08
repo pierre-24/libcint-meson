@@ -1,8 +1,8 @@
 # configure file
 head_config = configure_file(
     format: 'cmake@',
-    input: 'config.h.in',
-    output: 'config.h',
+    input: 'cint_config.h.in',
+    output: 'cint_config.h',
     configuration: project_config
 )
 

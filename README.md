@@ -58,3 +58,13 @@ In practice, each folder in [`for-tests`](for-tests) that starts with `test_meso
 2. a `subproject/libcint` folder is filled with the previously created archive,  then
 3. `meson setup` and `meson compile` ensue, and then
 4. the output of the resulting program (by convention, `test_libcint`) is compared with `EXPECTED` (it should match).
+
+In practice, to test your changes, run
+
+```bash
+# generate libcint & files
+./generate.sh v6.1.3 v0.3.0
+
+# tests
+./test.sh
+```
