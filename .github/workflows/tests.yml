@@ -1,16 +1,15 @@
-name: Publish patched code
+name: CI
 
 on:
   push:
     branches: [ main ]
     tags: [ 'v*' ]
-
-permissions:
-  contents: write
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build:
-    name: Patch and publish
+  tests:
+    name: tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -32,10 +31,6 @@ jobs:
       - name: Install other dependencies
         run: |
           sudo apt-get -y install clisp meson ninja-build cmake
-      - name: change ref (tag)
-        if: contains(github.ref, 'tags')
-        run: |
-            echo "REF=${{ github.ref_name }}" >> "$GITHUB_ENV"
       - name: Generate
         run: |
            ./generate.sh "${{ matrix.libcint_ref }}" "${{ env.REF }}"
@@ -47,19 +42,3 @@ jobs:
         run: |
             export CC=clang
             ./tests.sh
-      - name: Upload archive
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: libcint/libcint.tar.gz
-          asset_name: libcint_${{ matrix.libcint_ref }}.tar.gz
-          tag: ${{ env.REF }}
-          overwrite: true
-      - name: Upload wrap
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: libcint/libcint.wrap
-          asset_name: libcint_${{ matrix.libcint_ref }}.wrap
-          tag: ${{ env.REF }}
-          overwrite: true

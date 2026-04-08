@@ -4,6 +4,7 @@
 project(
     'cint', 'c',
     version : '#VERSION#',
+    default_options : ['warning_level=3', 'c_std=c11']
 )
 
 cc = meson.get_compiler('c')
@@ -14,11 +15,6 @@ project_config = configuration_data({
     'cint_VERSION': '#VERSION#',
     'cint_SOVERSION': '6'
 })
-
-quadmath_dep = cc.find_library('quadmath', required: false)
-if quadmath_dep.found() and cc_id == 'gcc'
-    project_config.set('HAVE_QUADMATH_H', true)
-endif
 
 if cc.has_function('expl')
     project_config.set('HAVE_EXPL', true)
@@ -60,10 +56,9 @@ if cc.has_argument('-march=native')
     message('added -march=native and loop unroling flags')
 endif
 
+quadmath_dep = cc.find_library('quadmath', required: false)
 if quadmath_dep.found() and cc_id == 'gcc'
     project_dep += quadmath_dep
-    build_args += '-DHAVE_QUADMATH_H'
-    message('added quadmath')
 endif
 
 # deal with options:
