@@ -3,6 +3,10 @@
 # $1: libcint REF
 # $2: internal REF (e.g., latest)
 
+if [ "$#" -ne 2 ]; then
+    echo "Illegal number of parameters, must be 2"
+fi
+
 # delete previous attempt if any
 rm -Rf libcint/
 

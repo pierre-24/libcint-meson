@@ -16,8 +16,8 @@ Just grab the wrap file corresponding to the version you want to use ...
 # create a `subprojects` folder if it does not exists yet
 mkdir subprojects
 
-# download wrap file, here for libcint v6.1.2:
-wget https://github.com/pierre-24/libcint-meson/releases/download/v0.3.0/libcint_v6.1.2.wrap -O subprojects/libcint.wrap
+# download wrap file, here for libcint v6.1.3:
+wget https://github.com/pierre-24/libcint-meson/releases/download/v0.3.0/libcint_v6.1.3.wrap -O subprojects/libcint.wrap
 ```
 
 ... and add something like this in your `meson.build`:
