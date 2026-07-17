@@ -5,6 +5,7 @@
 
 if [ "$#" -ne 2 ]; then
     echo "Illegal number of parameters, must be 2"
+    exit 1
 fi
 
 # delete previous attempt if any
