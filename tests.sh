@@ -32,8 +32,17 @@ for TEST_SOURCE_DIR in ../for-tests/test_meson*; do
     tar -xzf ../../libcint/libcint.tar.gz -C subprojects/libcint
     
     # build project
-    meson setup _build
-    meson compile -C _build > /dev/null
+    meson setup _build > SETUP.log
+    if [[ $? != 0 ]]; then
+      cat SETUP.log
+      exit 1
+      fi
+      
+    meson compile -C _build > BUILD.log
+    if [[ $? != 0 ]]; then
+      cat BUILD.log
+      exit 1
+      fi
     
     # execute
     _build/test_libcint > ACTUAL
@@ -47,16 +56,30 @@ for TEST_SOURCE_DIR in ../for-tests/test_meson*; do
         exit 1
     fi
     
+    echo "OK =)"
     # go back
     cd ..
 done
 
 # test CMAKE
 mkdir test_cmake
+echo "-- Testing test_cmake"
 cd test_cmake
 tar -xzf ../../libcint/libcint.tar.gz
 mkdir build
 cd build
-cmake ..
-cmake --build . -j4
+
+cmake .. > SETUP.log
+if [[ $? != 0 ]]; then
+  cat SETUP.log
+  exit 1
+  fi
+
+cmake --build . -j2 > BUILD.log
+if [[ $? != 0 ]]; then
+  cat BUILD.log
+  exit 1
+  fi
+
+echo "OK =)"
 cd ..

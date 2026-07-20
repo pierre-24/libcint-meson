@@ -4,13 +4,16 @@
 program test_libcint
   implicit none
   integer :: atm(18), bas(40), shells(2)
-  double precision :: env(71), buff(15)
+  double precision :: buff(15)
+  double precision,allocatable :: env(:)
   integer natm, nbas, si, sj, ibas, jbas, ielm
   
   ! what?!?
   integer,external :: CINTcgto_cart
   
-  print *, 'SIZEOF(integer)=', SIZEOF(natm)
+  allocate (env(10000))
+  
+  print '(a, i0)', 'SIZEOF(integer)=  ', sizeof(natm)
   
   ! water STO-3G
   natm = 3
@@ -56,7 +59,7 @@ program test_libcint
       sj = CINTcgto_cart(jbas-1, bas)
       print '(a,i0,a,i0,a,i0,a,i0,a)', "ibas=", ibas - 1, " (N=", si, "), jbas=", jbas - 1, " (N=", sj, ")"
       shells = [ibas - 1, jbas - 1]
-      call cint1e_ovlp_cart(buff, shells, atm, natm, bas, nbas, env)
+      call cint1e_ovlp_cart(buff, shells, atm, natm, bas, nbas, env, 0)
       do ielm=1, si
         print '(*(f8.5))', abs(buff(1 + (ielm-1) * si:(ielm-1) * si + min(ielm, sj)))
       enddo

@@ -14,6 +14,10 @@ build_args = [
   '-fdefault-integer-8' # INTEGER*8 by default
 ]
 
+if fc.get_id() == 'intel' or fc.get_id() == 'intel-llvm'
+  add_project_arguments('-i8', language: 'fortran')
+endif
+
 libcint_dep = fc.find_library('libcint', required: false)
 if not libcint_dep.found()
   libcint_proj = subproject('libcint', default_options: ['with_fortran=true', 'i8=true'])
