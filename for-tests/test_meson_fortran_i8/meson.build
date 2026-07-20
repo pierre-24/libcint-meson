@@ -20,7 +20,7 @@ endif
 
 libcint_dep = fc.find_library('libcint', required: false)
 if not libcint_dep.found()
-  libcint_proj = subproject('libcint', default_options: ['with_fortran=true', 'i8=true', 'buildtype=release'])
+  libcint_proj = subproject('libcint', default_options: ['with_fortran=true', 'i8=true'])
   libcint_dep = libcint_proj.get_variable('libcint_dep')
 endif
 project_dep += libcint_dep

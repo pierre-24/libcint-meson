@@ -59,7 +59,7 @@ program test_libcint
       sj = CINTcgto_cart(jbas-1, bas)
       print '(a,i0,a,i0,a,i0,a,i0,a)', "ibas=", ibas - 1, " (N=", si, "), jbas=", jbas - 1, " (N=", sj, ")"
       shells = [ibas - 1, jbas - 1]
-      call cint1e_ovlp_cart(buff, shells, atm, natm, bas, nbas, env)
+      call cint1e_ovlp_cart(buff, shells, atm, natm, bas, nbas, env, 0)
       do ielm=1, si
         print '(*(f8.5))', abs(buff(1 + (ielm-1) * si:(ielm-1) * si + min(ielm, sj)))
       enddo
