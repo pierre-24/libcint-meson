@@ -4,11 +4,14 @@
 program test_libcint
   implicit none
   integer :: atm(18), bas(40), shells(2)
-  double precision :: env(71), buff(15)
+  double precision :: buff(15)
+  double precision,allocatable :: env(:)
   integer natm, nbas, si, sj, ibas, jbas, ielm
   
   ! what?!?
   integer,external :: CINTcgto_cart
+  
+  allocate (env(10000))
   
   print '(a, i0)', 'SIZEOF(integer)=  ', sizeof(natm)
   
